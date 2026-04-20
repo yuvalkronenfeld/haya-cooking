@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>המטבח של חיה</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -376,7 +377,7 @@ let editingId = null;
 
 function saveCats(){localStorage.setItem('haya_cats',JSON.stringify(categories));}
 
-// מאגר התמונות האוטומטי
+// המאגר החכם (התמונות המעודכנות)
 const imageDB = {
   "עוגת שוקולד": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
   "קציצות בשר": "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80",
@@ -391,7 +392,7 @@ const imageDB = {
   "חביתה": "https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=800&q=80",
   "מקושקשת": "https://images.unsplash.com/photo-1525999146746-324c4784a0c8?auto=format&fit=crop&w=800&q=80",
   "מוקפץ": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
-  "מרק": "https://images.unsplash.com/photo-1548943487-a2e4b43b6852?auto=format&fit=crop&w=800&q=80",
+  "מרק": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
   "סלט": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
   "עוגה": "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=800&q=80",
   "פנקייק": "https://images.unsplash.com/photo-1528207776546-384cb11362fc?auto=format&fit=crop&w=800&q=80",
@@ -460,9 +461,11 @@ function renderCards(){
     grid.innerHTML=`<div class="empty"><div class="empty-icon">🥄</div><h3>לא נמצאו מתכונים</h3><p>נסי חיפוש אחר או הוסיפי מתכון חדש.</p></div>`;
     return;
   }
+  
+  // שימו לב לשורת ה- onerror שמגנה מקריסת תמונה!
   grid.innerHTML=f.map(r=>`
     <div class="recipe-card" id="card-${r.id}" onclick="viewRecipe(${r.id})">
-      ${r.image?`<img class="card-image" src="${r.image}" alt="${r.name}">`:`<div class="card-image-placeholder">${r.emoji||'🍽️'}</div>`}
+      ${r.image ? `<img class="card-image" src="${r.image}" alt="${r.name}" onerror="this.outerHTML='<div class=\\'card-image-placeholder\\'>${r.emoji||'🍽️'}</div>'">` : `<div class="card-image-placeholder">${r.emoji||'🍽️'}</div>`}
       
       <button class="card-delete" onclick="del(event,${r.id})" title="מחיקה">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
@@ -492,7 +495,7 @@ function viewRecipe(id){
   document.getElementById('viewContent').innerHTML=`
     <button class="modal-close" style="z-index:10" onclick="closeModal('viewOverlay')">✕</button>
     <div class="view-hero">
-      ${r.image?`<img src="${r.image}" alt="${r.name}">`:`<div class="view-hero-ph">${r.emoji||'🍽️'}</div>`}
+      ${r.image ? `<img src="${r.image}" alt="${r.name}" onerror="this.outerHTML='<div class=\\'view-hero-ph\\'>${r.emoji||'🍽️'}</div>'">` : `<div class="view-hero-ph">${r.emoji||'🍽️'}</div>`}
       <div class="view-grad"></div>
       <div class="view-title-area"><span class="view-tag">${r.category}</span><h2 class="view-title">${r.name}</h2></div>
     </div>
@@ -578,7 +581,6 @@ function saveRecipe(e){
   const catSel=document.getElementById('rCategory');
   let category=catSel.value==='__custom__' ? (document.getElementById('rCustomCategory').value.trim()||'אחר') : catSel.value;
   
-  // הוספת קטגוריה חדשה לזיכרון במידה ולא קיימת
   if(!categories.includes(category)) {
     categories.push(category);
     saveCats();
@@ -640,7 +642,6 @@ function del(e,id){
       recipes=recipes.filter(r=>r.id!==id);
       save();
       
-      // מחיקה אוטומטית של הקטגוריה מהזיכרון אם אין בה יותר מתכונים
       if(r_cat) {
         const stillHas = recipes.some(r=>r.category === r_cat);
         if(!stillHas) {
@@ -663,11 +664,9 @@ function editCategoryName(oldCat) {
   if (newCat && newCat.trim() !== '' && newCat !== oldCat) {
     const cleanNewCat = newCat.trim();
     
-    // עדכון בתוך מאגר הקטגוריות החכם
     const idx = categories.indexOf(oldCat);
     if(idx !== -1) categories[idx] = cleanNewCat;
     
-    // עדכון בכל המתכונים
     recipes.forEach(r => {
       if (r.category === oldCat) r.category = cleanNewCat;
     });
@@ -727,7 +726,6 @@ function renderFilterPills(){
   const searchWrap=bar.querySelector('.search-wrap');
   bar.querySelectorAll('.filter-pill, .cat-edit-btn').forEach(p=>p.remove());
 
-  // נוודא שכל הקטגוריות הקיימות במתכונים אכן נמצאות במאגר שלנו
   let changed = false;
   recipes.forEach(r => {
     if(r.category && !categories.includes(r.category)) {
