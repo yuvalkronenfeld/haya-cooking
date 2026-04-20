@@ -265,10 +265,12 @@ textarea{resize:vertical;min-height:72px;}
       <div class="form-row">
         <div class="form-group">
           <label>קטגוריה</label>
-          <select id="rCategory">
+          <select id="rCategory" onchange="handleCatChange(this)">
             <option>ארוחת ערב</option><option>ארוחת צהריים</option><option>ארוחת בוקר</option>
             <option>קינוח</option><option>מרק</option><option>סלט</option><option>חטיף</option>
+            <option value="__custom__">+ קטגוריה חדשה…</option>
           </select>
+          <input type="text" id="rCustomCategory" placeholder="שם הקטגוריה החדשה…" style="display:none;margin-top:8px;">
         </div>
         <div class="form-group">
           <label>מנות</label>
@@ -305,7 +307,7 @@ textarea{resize:vertical;min-height:72px;}
         <label>מצרכים</label>
         <div class="dynamic-list" id="ingredientsList">
           <div class="dynamic-item">
-            <input type="text" placeholder='לדוגמה: 2 כוסות קמח'>
+            <input type="text" placeholder='לדוגמה: 2 כוסות קמח' onkeydown="ingEnter(event)">
             <button type="button" class="btn-remove" onclick="removeItem(this)">−</button>
           </div>
         </div>
@@ -316,7 +318,7 @@ textarea{resize:vertical;min-height:72px;}
         <div class="dynamic-list" id="stepsList">
           <div class="dynamic-item">
             <span class="step-num-badge">1</span>
-            <input type="text" placeholder='לדוגמה: מחממים תנור ל-180°'>
+            <input type="text" placeholder='לדוגמה: מחממים תנור ל-180°' onkeydown="stepEnter(event)">
             <button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button>
           </div>
         </div>
@@ -452,8 +454,9 @@ function viewRecipe(id){
 
 function openAddModal(){
   document.getElementById('recipeForm').reset();
-  document.getElementById('ingredientsList').innerHTML=`<div class="dynamic-item"><input type="text" placeholder="לדוגמה: 2 כוסות קמח"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button></div>`;
-  document.getElementById('stepsList').innerHTML=`<div class="dynamic-item"><span class="step-num-badge">1</span><input type="text" placeholder="לדוגמה: מחממים תנור ל-180°"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button></div>`;
+  document.getElementById('rCustomCategory').style.display='none';
+  document.getElementById('ingredientsList').innerHTML=`<div class="dynamic-item"><input type="text" placeholder="לדוגמה: 2 כוסות קמח" onkeydown="ingEnter(event)"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button></div>`;
+  document.getElementById('stepsList').innerHTML=`<div class="dynamic-item"><span class="step-num-badge">1</span><input type="text" placeholder="לדוגמה: מחממים תנור ל-180°" onkeydown="stepEnter(event)"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button></div>`;
   document.getElementById('imagePreview').style.display='none';
   document.getElementById('uploadPrompt').style.display='';
   imageData='';
@@ -462,12 +465,16 @@ function openAddModal(){
 
 function saveRecipe(e){
   e.preventDefault();
+  const catSel=document.getElementById('rCategory');
+  const category=catSel.value==='__custom__'
+    ?(document.getElementById('rCustomCategory').value.trim()||'אחר')
+    :catSel.value;
   const ings=[...document.querySelectorAll('#ingredientsList input')].map(i=>i.value.trim()).filter(Boolean);
   const steps=[...document.querySelectorAll('#stepsList input')].map(i=>i.value.trim()).filter(Boolean);
   const emojis=['🥘','🍲','🥗','🍛','🫕','🥙','🍜','🍝','🥧','🫔','🍱','🥞','🫓','🥩'];
   recipes.unshift({
     id:Date.now(),name:document.getElementById('rName').value,
-    category:document.getElementById('rCategory').value,
+    category,
     servings:document.getElementById('rServings').value,
     prep:document.getElementById('rPrep').value,
     cook:document.getElementById('rCook').value,
@@ -489,14 +496,14 @@ function del(e,id){
 
 function addIngredient(){
   const li=document.createElement('div');li.className='dynamic-item';
-  li.innerHTML=`<input type="text" placeholder="מצרך נוסף…"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button>`;
+  li.innerHTML=`<input type="text" placeholder="מצרך נוסף…" onkeydown="ingEnter(event)"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button>`;
   document.getElementById('ingredientsList').appendChild(li);li.querySelector('input').focus();
 }
 function addStep(){
   const list=document.getElementById('stepsList');
   const n=list.children.length+1;
   const li=document.createElement('div');li.className='dynamic-item';
-  li.innerHTML=`<span class="step-num-badge">${n}</span><input type="text" placeholder="שלב הבא…"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button>`;
+  li.innerHTML=`<span class="step-num-badge">${n}</span><input type="text" placeholder="שלב הבא…" onkeydown="stepEnter(event)"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button>`;
   list.appendChild(li);li.querySelector('input').focus();
 }
 function removeItem(btn){
@@ -537,16 +544,32 @@ function importRecipes(e){
   const reader=new FileReader();
   reader.onload=ev=>{
     try{
-      const imp=JSON.parse(ev.target.result);
-      if(!Array.isArray(imp))throw 0;
+      const text=ev.target.result.replace(/^\uFEFF/,'');
+      const imp=JSON.parse(text);
+      if(!Array.isArray(imp))throw new Error('not array');
       const ids=new Set(recipes.map(r=>r.id));
       let added=0;
       imp.forEach(r=>{if(!ids.has(r.id)){recipes.unshift(r);added++;}});
       save();renderCards();closeModal('shareOverlay');
       showToast(added?`נוספו ${added} מתכונים חדשים!`:'כל המתכונים כבר קיימים.');
-    }catch{showToast('שגיאה בקריאת הקובץ.');}
+    }catch(err){
+      showToast('שגיאה: הקובץ אינו תקין. יש לייצא מחדש.');
+    }
+    e.target.value='';
   };
-  reader.readAsText(file);e.target.value='';
+  reader.readAsText(file,'UTF-8');
+}
+
+function ingEnter(e){
+  if(e.key==='Enter'){e.preventDefault();addIngredient();}
+}
+function stepEnter(e){
+  if(e.key==='Enter'){e.preventDefault();addStep();}
+}
+function handleCatChange(sel){
+  const custom=document.getElementById('rCustomCategory');
+  if(sel.value==='__custom__'){custom.style.display='block';custom.focus();}
+  else{custom.style.display='none';}
 }
 
 /* ── UTILS ── */
