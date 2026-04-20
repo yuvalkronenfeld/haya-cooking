@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>המטבח של חיה</title>
-
-<link rel="icon" type="image/png" href="./logo.png">
-<link rel="apple-touch-icon" href="./logo.png">
-
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -66,9 +63,6 @@ header{background:var(--espresso);height:68px;padding:0 5vw;display:flex;align-i
 .filters{padding:0 5vw 26px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .filter-pill{background:transparent;border:1.5px solid var(--cream3);border-radius:50px;padding:7px 16px;font-size:13px;color:var(--brown);font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
 .filter-pill:hover,.filter-pill.active{background:var(--espresso);color:var(--white);border-color:var(--espresso);}
-.cat-edit-btn{background:transparent; border:none; color:var(--muted); cursor:pointer; padding:0 5px; font-size:14px; display:inline-flex; align-items:center; justify-content:center; transition: color 0.2s;}
-.cat-edit-btn:hover{color:var(--terra);}
-
 .search-wrap{margin-right:auto;position:relative;}
 .search-wrap svg{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--muted);pointer-events:none;}
 .search-wrap input{background:var(--white);border:1.5px solid var(--cream3);border-radius:50px;padding:8px 36px 8px 18px;font-size:13px;color:var(--espresso);font-family:'Heebo',sans-serif;width:205px;outline:none;transition:border 0.2s;direction:rtl;}
@@ -88,15 +82,9 @@ header{background:var(--espresso);height:68px;padding:0 5vw;display:flex;align-i
 .card-meta{display:flex;align-items:center;gap:12px;padding-top:11px;border-top:1px solid var(--cream2);flex-wrap:wrap;}
 .meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);}
 .meta-item svg{width:12px;height:12px;}
-
-/* ── ACTION BUTTONS ON CARD ── */
-.card-delete, .card-edit{position:absolute;top:10px;background:rgba(26,16,8,0.55);border:none;border-radius:50%;width:31px;height:31px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s, background 0.2s;color:white;}
-.card-delete{left:10px;}
-.card-edit{left:48px;}
-.recipe-card:hover .card-delete, .recipe-card:hover .card-edit{opacity:1;}
+.card-delete{position:absolute;top:10px;left:10px;background:rgba(26,16,8,0.55);border:none;border-radius:50%;width:31px;height:31px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s;color:white;}
+.recipe-card:hover .card-delete{opacity:1;}
 .card-delete:hover{background:rgba(196,78,30,0.88);}
-.card-edit:hover{background:rgba(212,168,67,0.88);}
-
 .empty{grid-column:1/-1;text-align:center;padding:80px 20px;}
 .empty-icon{font-size:50px;margin-bottom:14px;}
 .empty h3{font-family:'Frank Ruhl Libre',serif;font-size:26px;font-weight:700;color:var(--brown);margin-bottom:8px;}
@@ -124,15 +112,6 @@ textarea{resize:vertical;min-height:72px;}
 .image-upload p{font-size:13px;color:var(--muted);}
 .image-upload p strong{color:var(--terra);}
 .image-preview{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--rsm);display:none;}
-
-.btn-remove-img {
-  background: transparent; color: var(--terra); border: 1.5px solid var(--terra);
-  border-radius: var(--rsm); padding: 8px 12px; margin-top: 8px; font-size: 13px;
-  cursor: pointer; font-family: 'Heebo', sans-serif; transition: all 0.2s;
-  display: block; width: 100%; font-weight:500;
-}
-.btn-remove-img:hover { background: var(--cream); }
-
 .dynamic-list{display:flex;flex-direction:column;gap:7px;}
 .dynamic-item{display:flex;align-items:center;gap:7px;}
 .dynamic-item input{flex:1;}
@@ -147,6 +126,14 @@ textarea{resize:vertical;min-height:72px;}
 .btn-submit:active{transform:scale(0.98);}
 .btn-cancel{background:transparent;color:var(--brown);border:1.5px solid var(--cream3);border-radius:50px;padding:13px 20px;font-size:14px;font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;}
 .btn-cancel:hover{background:var(--cream);}
+
+.btn-remove-img {
+  background: transparent; color: var(--terra); border: 1.5px solid var(--terra);
+  border-radius: var(--rsm); padding: 8px 12px; margin-top: 8px; font-size: 13px;
+  cursor: pointer; font-family: 'Heebo', sans-serif; transition: all 0.2s;
+  display: block; width: 100%; font-weight:500;
+}
+.btn-remove-img:hover { background: var(--cream); }
 
 /* ── VIEW MODAL ── */
 .view-modal{background:var(--white);border-radius:24px;width:100%;max-width:670px;position:relative;margin:auto;overflow:hidden;transform:translateY(16px);transition:transform 0.3s;}
@@ -377,10 +364,10 @@ let categories=JSON.parse(localStorage.getItem('haya_cats')||'["ארוחת בו�
 let currentFilter='הכל';
 let imageData='';
 let editingId = null; 
+let userRemovedImage = false; // משתנה שמוודא מחיקת תמונה כפויה
 
 function saveCats(){localStorage.setItem('haya_cats',JSON.stringify(categories));}
 
-// המאגר החכם (התמונות המעודכנות)
 const imageDB = {
   "עוגת שוקולד": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
   "קציצות בשר": "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80",
@@ -482,8 +469,8 @@ function renderCards(){
         <h3 class="card-title">${r.name}</h3>
         ${r.desc?`<p class="card-desc">${r.desc}</p>`:''}
         <div class="card-meta">
-          ${r.prep?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${r.prep}</span>`:''}
-          ${r.cook?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h12"/></svg>${r.cook} בישול</span>`:''}
+          ${r.prep?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>הכנה: ${r.prep}</span>`:''}
+          ${r.cook?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h12"/></svg>בישול: ${r.cook}</span>`:''}
           ${r.servings?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${r.servings} מנות</span>`:''}
         </div>
       </div>
@@ -516,6 +503,7 @@ function viewRecipe(id){
 
 function openAddModal(){
   editingId = null; 
+  userRemovedImage = false;
   document.getElementById('modalMainTitle').textContent = "מתכון חדש";
   document.getElementById('recipeForm').reset();
   document.getElementById('rCustomCategory').style.display='none';
@@ -534,6 +522,7 @@ function openEditModal(e, id) {
   if (!r) return;
   
   editingId = id;
+  userRemovedImage = false;
   document.getElementById('modalMainTitle').textContent = "עריכת מתכון";
   
   document.getElementById('rName').value = r.name || '';
@@ -576,6 +565,7 @@ function removeImage(){
   document.getElementById('imagePreview').src = '';
   document.getElementById('uploadPrompt').style.display = '';
   document.getElementById('btnRemoveImg').style.display = 'none'; 
+  userRemovedImage = true;
 }
 
 function saveRecipe(e){
@@ -596,7 +586,8 @@ function saveRecipe(e){
   const recipeName = document.getElementById('rName').value;
   
   let finalImage = imageData;
-  if (!finalImage) {
+  // בודקים אם המשתמש לא בחר למחוק את התמונה במכוון
+  if (!finalImage && !userRemovedImage) {
     finalImage = getAutoImage(recipeName);
   }
   
@@ -712,6 +703,7 @@ function previewImage(e){
     document.getElementById('imagePreview').style.display='block';
     document.getElementById('uploadPrompt').style.display='none';
     document.getElementById('btnRemoveImg').style.display='block';
+    userRemovedImage = false;
   };
   reader.readAsDataURL(file);
 }
