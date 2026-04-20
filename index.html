@@ -54,13 +54,27 @@ header{background:var(--espresso);height:68px;padding:0 5vw;display:flex;align-i
 .btn-add-h:active{transform:scale(0.97);}
 .btn-add-h svg{width:14px;height:14px;}
 
-/* ═══════════════ HERO ═══════════════ */
-.hero{padding:58px 5vw 42px;}
+/* ═══════════════ HERO (with Personal Photo) ═══════════════ */
+.hero{padding:60px 5vw; display:flex; align-items:center; gap:40px; flex-wrap:wrap;}
+.hero-text{flex:1; min-width:300px;}
 .hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--terra);margin-bottom:11px;}
-.hero-title{font-family:'Frank Ruhl Libre',serif;font-size:clamp(38px,6vw,76px);font-weight:900;line-height:1.0;color:var(--espresso);max-width:580px;margin-bottom:13px;}
+.hero-title{font-family:'Frank Ruhl Libre',serif;font-size:clamp(38px,6vw,72px);font-weight:900;line-height:1.0;color:var(--espresso);margin-bottom:15px;}
 .hero-title em{color:var(--terra);font-style:italic;font-weight:300;}
-.hero-sub{font-size:15px;color:var(--muted);font-weight:300;max-width:340px;margin-bottom:12px;}
+.hero-sub{font-size:16px;color:var(--muted);font-weight:300;max-width:440px;margin-bottom:20px; line-height:1.8;}
 .hero-line{width:54px;height:3px;background:linear-gradient(270deg,var(--terra),transparent);border-radius:2px;}
+
+/* עיצוב התמונה האישית */
+.hero-profile{flex-shrink:0; position:relative; padding-bottom:15px; padding-left:15px; margin:0 auto;}
+.hero-profile::after{content:''; position:absolute; bottom:0; left:0; width:100%; height:100%; background:var(--terra-light); border-radius:40px 10px 40px 10px; z-index:-1; transform:translate(15px, 15px); opacity:0.6;}
+.chaya-photo{
+  width:220px; height:280px; /* יחס גובה-רוחב אמנותי */
+  object-fit:cover; /* מוודא שהתמונה לא תתעוות */
+  border-radius:40px 10px 40px 10px; /* פינות מעוגלות בצורה א-סימטרית */
+  border:6px solid var(--white);
+  box-shadow:var(--shadow);
+  background:var(--cream3); /* רקע זמני עד שהתמונה תיטען */
+  display:block;
+}
 
 /* ═══════════════ FILTERS ═══════════════ */
 .filters{padding:0 5vw 26px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
@@ -189,6 +203,12 @@ textarea{resize:vertical;min-height:72px;}
 ::-webkit-scrollbar-track{background:var(--cream);}
 ::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:3px;}
 
+@media(max-width:767px){
+  .hero{ flex-direction:column-reverse; text-align:center; padding:40px 20px; gap:30px;}
+  .hero-sub{margin-right:auto; margin-left:auto;}
+  .hero-line{margin-right:auto; margin-left:auto;}
+  .chaya-photo{ width:180px; height:230px;}
+}
 @media(max-width:560px){
   .modal,.share-modal{padding:22px 18px;}
   .form-row{grid-template-columns:1fr;}
@@ -196,7 +216,6 @@ textarea{resize:vertical;min-height:72px;}
   .view-title-area{padding:16px 16px;}
   .view-title{font-size:23px;}
   .ingredients-list{grid-template-columns:1fr;}
-  .hero-title{font-size:36px;}
   .header-actions .btn-icon span{display:none;}
 }
 </style>
@@ -246,10 +265,15 @@ textarea{resize:vertical;min-height:72px;}
   </header>
 
   <section class="hero">
-    <p class="hero-eyebrow">אוסף אהוב</p>
-    <h1 class="hero-title">מתכונים<br>עם <em>אהבה</em></h1>
-    <p class="hero-sub">מטעמים שעוברים מדור לדור, שמורים כאן לנצח.</p>
-    <div class="hero-line"></div>
+    <div class="hero-text">
+      <p class="hero-eyebrow">אוסף משפחתי אוהב</p>
+      <h1 class="hero-title">המתכונים<br>של <em>חיה</em></h1>
+      <p class="hero-sub">בדיוק כמו בבית: מטעמים עם זיכרונות שעוברים מדור לדור, שמורים כאן לכולנו עם המון אהבה.</p>
+      <div class="hero-line"></div>
+    </div>
+    <div class="hero-profile">
+      <img src="./chaya.jpg" alt="חיה" class="chaya-photo" onerror="this.style.display='none'; this.parentNode.style.background='var(--cream3)'; this.parentNode.style.width='150px'; this.parentNode.style.height='150px'; this.parentNode.style.borderRadius='50%'">
+    </div>
   </section>
 
   <div class="filters" id="filtersBar">
@@ -277,7 +301,7 @@ textarea{resize:vertical;min-height:72px;}
         <div class="form-group">
           <label>קטגוריה</label>
           <select id="rCategory" onchange="handleCatChange(this)">
-          </select>
+            </select>
           <input type="text" id="rCustomCategory" placeholder="שם הקטגוריה החדשה…" style="display:none;margin-top:8px;">
         </div>
         <div class="form-group">
