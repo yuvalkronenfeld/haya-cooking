@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המטבח של חיה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F0;--cream2:#EFE8DA;--cream3:#E0D4C0;
+  --terra:#C04E1E;--terra-light:#F2C4A8;--terra-dark:#8A3210;
+  --espresso:#1A1008;--brown:#6B4A2A;--muted:#9A7A58;--gold:#D4A843;--white:#FFFFFF;
+  --shadow:0 4px 32px rgba(26,16,8,0.10);--r:16px;--rsm:10px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--espresso);font-family:'Heebo',sans-serif;font-size:16px;line-height:1.65;min-height:100vh;direction:rtl;}
+
+/* ═══════════════ COVER ═══════════════ */
+#cover{min-height:100vh;width:100%;background:var(--espresso);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:40px 20px;}
+.cover-bg1{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(196,78,30,0.20) 0%,transparent 70%);top:-100px;right:-150px;pointer-events:none;}
+.cover-bg2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,67,0.13) 0%,transparent 70%);bottom:-80px;left:-100px;pointer-events:none;}
+.cover-ornament{position:absolute;font-size:340px;opacity:0.035;top:50%;left:50%;transform:translate(-50%,-54%);pointer-events:none;user-select:none;line-height:1;}
+.cover-inner{position:relative;text-align:center;max-width:680px;}
+.cover-eyebrow{display:inline-block;border:1px solid rgba(212,168,67,0.45);border-radius:50px;padding:7px 22px;font-size:12px;letter-spacing:0.15em;color:var(--gold);font-weight:400;margin-bottom:32px;text-transform:uppercase;}
+.cover-title{font-family:'Frank Ruhl Libre',serif;font-size:clamp(60px,13vw,128px);font-weight:900;line-height:0.92;color:var(--white);margin-bottom:12px;}
+.cover-title span{display:block;color:var(--terra);font-weight:300;font-style:italic;font-size:0.52em;letter-spacing:0.03em;}
+.cover-sub{font-size:clamp(14px,2vw,17px);color:rgba(255,255,255,0.45);font-weight:300;margin-bottom:44px;max-width:360px;margin-right:auto;margin-left:auto;line-height:1.85;}
+.cover-divider{width:44px;height:2px;background:linear-gradient(90deg,transparent,var(--terra),transparent);margin:0 auto 44px;}
+.cover-tags{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:40px;}
+.cover-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:6px 16px;font-size:13px;color:rgba(255,255,255,0.42);}
+.cover-enter{display:inline-flex;align-items:center;gap:11px;background:var(--terra);color:var(--white);border:none;border-radius:50px;padding:16px 42px;font-size:16px;font-weight:500;font-family:'Heebo',sans-serif;cursor:pointer;transition:background 0.25s,transform 0.2s,box-shadow 0.25s;box-shadow:0 8px 36px rgba(196,78,30,0.45);text-decoration:none;}
+.cover-enter:hover{background:var(--terra-dark);transform:translateY(-2px);box-shadow:0 14px 44px rgba(196,78,30,0.55);}
+.cover-enter svg{width:17px;height:17px;transform:rotate(180deg);}
+.cover-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.22);font-size:11px;letter-spacing:0.12em;display:flex;flex-direction:column;align-items:center;gap:7px;}
+.cover-hint::after{content:'';width:1px;height:30px;background:linear-gradient(var(--terra),transparent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* ═══════════════ HEADER ═══════════════ */
+header{background:var(--espresso);height:68px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Frank Ruhl Libre',serif;font-size:24px;font-weight:700;color:var(--white);}
+.logo em{color:var(--terra);font-style:italic;font-weight:300;}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.btn-icon{background:rgba(255,255,255,0.07);border:none;border-radius:50px;padding:9px 17px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.68);font-family:'Heebo',sans-serif;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.btn-icon:hover{background:rgba(255,255,255,0.13);}
+.btn-icon svg{width:14px;height:14px;}
+.btn-add-h{background:var(--terra);color:var(--white);border:none;border-radius:50px;padding:10px 21px;font-size:14px;font-weight:500;font-family:'Heebo',sans-serif;cursor:pointer;transition:background 0.2s,transform 0.15s;display:flex;align-items:center;gap:7px;}
+.btn-add-h:hover{background:var(--terra-dark);}
+.btn-add-h:active{transform:scale(0.97);}
+.btn-add-h svg{width:14px;height:14px;}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{padding:58px 5vw 42px;}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--terra);margin-bottom:11px;}
+.hero-title{font-family:'Frank Ruhl Libre',serif;font-size:clamp(38px,6vw,76px);font-weight:900;line-height:1.0;color:var(--espresso);max-width:580px;margin-bottom:13px;}
+.hero-title em{color:var(--terra);font-style:italic;font-weight:300;}
+.hero-sub{font-size:15px;color:var(--muted);font-weight:300;max-width:340px;margin-bottom:12px;}
+.hero-line{width:54px;height:3px;background:linear-gradient(270deg,var(--terra),transparent);border-radius:2px;}
+
+/* ═══════════════ FILTERS ═══════════════ */
+.filters{padding:0 5vw 26px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.filter-pill{background:transparent;border:1.5px solid var(--cream3);border-radius:50px;padding:7px 16px;font-size:13px;color:var(--brown);font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.filter-pill:hover,.filter-pill.active{background:var(--espresso);color:var(--white);border-color:var(--espresso);}
+.search-wrap{margin-right:auto;position:relative;}
+.search-wrap svg{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--muted);pointer-events:none;}
+.search-wrap input{background:var(--white);border:1.5px solid var(--cream3);border-radius:50px;padding:8px 36px 8px 18px;font-size:13px;color:var(--espresso);font-family:'Heebo',sans-serif;width:205px;outline:none;transition:border 0.2s;direction:rtl;}
+.search-wrap input:focus{border-color:var(--terra);}
+
+/* ═══════════════ GRID ═══════════════ */
+.section-label{padding:0 5vw 16px;font-size:12px;letter-spacing:0.07em;color:var(--muted);font-weight:500;}
+.recipes-grid{padding:0 5vw 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:22px;}
+.recipe-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;position:relative;}
+.recipe-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,16,8,0.16);}
+.card-image{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--cream2);}
+.card-image-placeholder{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--cream2),var(--terra-light));display:flex;align-items:center;justify-content:center;font-size:52px;}
+.card-body{padding:17px 19px 19px;}
+.card-tag{display:inline-block;background:var(--cream);color:var(--terra);font-size:11px;font-weight:500;letter-spacing:0.06em;padding:4px 11px;border-radius:50px;margin-bottom:8px;}
+.card-title{font-family:'Frank Ruhl Libre',serif;font-size:21px;font-weight:700;line-height:1.25;color:var(--espresso);margin-bottom:7px;}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-meta{display:flex;align-items:center;gap:12px;padding-top:11px;border-top:1px solid var(--cream2);flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);}
+.meta-item svg{width:12px;height:12px;}
+.card-delete{position:absolute;top:10px;left:10px;background:rgba(26,16,8,0.55);border:none;border-radius:50%;width:31px;height:31px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s;color:white;}
+.recipe-card:hover .card-delete{opacity:1;}
+.card-delete:hover{background:rgba(196,78,30,0.88);}
+.empty{grid-column:1/-1;text-align:center;padding:80px 20px;}
+.empty-icon{font-size:50px;margin-bottom:14px;}
+.empty h3{font-family:'Frank Ruhl Libre',serif;font-size:26px;font-weight:700;color:var(--brown);margin-bottom:8px;}
+.empty p{color:var(--muted);font-size:14px;}
+
+/* ═══════════════ MODALS ═══════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(26,16,8,0.65);backdrop-filter:blur(5px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;opacity:0;pointer-events:none;transition:opacity 0.25s;overflow-y:auto;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--white);border-radius:24px;width:100%;max-width:590px;padding:34px 38px;transform:translateY(16px);transition:transform 0.3s;position:relative;margin:auto;}
+.modal-overlay.open .modal,.modal-overlay.open .view-modal,.modal-overlay.open .share-modal{transform:translateY(0);}
+.modal-close{position:absolute;top:16px;left:16px;background:var(--cream);border:none;border-radius:50%;width:33px;height:33px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--brown);transition:background 0.2s;font-size:16px;}
+.modal-close:hover{background:var(--cream2);}
+.modal-title{font-family:'Frank Ruhl Libre',serif;font-size:29px;font-weight:900;margin-bottom:3px;}
+.modal-subtitle{font-size:13px;color:var(--muted);margin-bottom:22px;}
+.form-group{margin-bottom:17px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+label{display:block;font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--brown);margin-bottom:6px;}
+input[type=text],input[type=number],textarea,select{width:100%;background:var(--cream);border:1.5px solid var(--cream3);border-radius:var(--rsm);padding:10px 12px;font-size:14px;font-family:'Heebo',sans-serif;color:var(--espresso);outline:none;transition:border 0.2s;direction:rtl;}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{border-color:var(--terra);background:var(--white);}
+textarea{resize:vertical;min-height:72px;}
+.image-upload{border:2px dashed var(--cream3);border-radius:var(--rsm);padding:22px;text-align:center;cursor:pointer;transition:border 0.2s,background 0.2s;position:relative;overflow:hidden;}
+.image-upload:hover{border-color:var(--terra);background:var(--cream);}
+.image-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.image-upload-icon{font-size:24px;margin-bottom:5px;}
+.image-upload p{font-size:13px;color:var(--muted);}
+.image-upload p strong{color:var(--terra);}
+.image-preview{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--rsm);display:none;}
+.dynamic-list{display:flex;flex-direction:column;gap:7px;}
+.dynamic-item{display:flex;align-items:center;gap:7px;}
+.dynamic-item input{flex:1;}
+.step-num-badge{min-width:26px;height:26px;background:var(--espresso);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;font-family:'Frank Ruhl Libre',serif;}
+.btn-remove{background:var(--cream2);border:none;border-radius:50%;width:27px;height:27px;min-width:27px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--brown);font-size:15px;transition:background 0.2s;}
+.btn-remove:hover{background:var(--terra-light);color:var(--terra-dark);}
+.btn-add-item{background:transparent;border:1.5px dashed var(--cream3);border-radius:var(--rsm);padding:8px 13px;font-size:13px;color:var(--muted);font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;width:100%;text-align:right;margin-top:4px;}
+.btn-add-item:hover{border-color:var(--terra);color:var(--terra);}
+.form-actions{display:flex;gap:9px;margin-top:22px;padding-top:18px;border-top:1px solid var(--cream2);}
+.btn-submit{flex:1;background:var(--espresso);color:var(--white);border:none;border-radius:50px;padding:13px 22px;font-size:15px;font-weight:500;font-family:'Heebo',sans-serif;cursor:pointer;transition:background 0.2s,transform 0.15s;}
+.btn-submit:hover{background:var(--terra);}
+.btn-submit:active{transform:scale(0.98);}
+.btn-cancel{background:transparent;color:var(--brown);border:1.5px solid var(--cream3);border-radius:50px;padding:13px 20px;font-size:14px;font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;}
+.btn-cancel:hover{background:var(--cream);}
+
+/* ── VIEW MODAL ── */
+.view-modal{background:var(--white);border-radius:24px;width:100%;max-width:670px;position:relative;margin:auto;overflow:hidden;transform:translateY(16px);transition:transform 0.3s;}
+.view-hero{position:relative;}
+.view-hero img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;}
+.view-hero-ph{width:100%;aspect-ratio:16/7;background:linear-gradient(135deg,var(--cream2),var(--terra-light));display:flex;align-items:center;justify-content:center;font-size:66px;}
+.view-grad{position:absolute;bottom:0;left:0;right:0;height:65%;background:linear-gradient(transparent,rgba(26,16,8,0.76));}
+.view-title-area{position:absolute;bottom:0;right:0;left:0;padding:22px 30px;}
+.view-tag{display:inline-block;background:var(--terra);color:white;font-size:11px;font-weight:500;letter-spacing:0.07em;padding:4px 11px;border-radius:50px;margin-bottom:7px;}
+.view-title{font-family:'Frank Ruhl Libre',serif;font-size:31px;font-weight:900;color:white;line-height:1.15;}
+.view-body{padding:26px 30px 34px;}
+.view-meta{display:flex;gap:18px;flex-wrap:wrap;padding-bottom:18px;margin-bottom:22px;border-bottom:1px solid var(--cream2);}
+.view-meta-item{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);}
+.view-meta-item svg{width:14px;height:14px;color:var(--terra);}
+.view-desc{font-family:'Frank Ruhl Libre',serif;font-style:italic;font-size:18px;color:var(--brown);line-height:1.7;margin-bottom:26px;}
+.section-h{font-family:'Frank Ruhl Libre',serif;font-size:20px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:9px;}
+.section-h::before{content:'';flex:1;height:1px;background:var(--cream2);}
+.ingredients-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:26px;}
+.ing-item{display:flex;align-items:flex-start;gap:9px;background:var(--cream);border-radius:var(--rsm);padding:9px 12px;font-size:14px;}
+.ing-dot{width:7px;height:7px;min-width:7px;border-radius:50%;background:var(--terra);margin-top:5px;}
+.steps-list{display:flex;flex-direction:column;gap:13px;}
+.step-item{display:flex;gap:13px;align-items:flex-start;}
+.step-num{width:33px;height:33px;min-width:33px;border-radius:50%;background:var(--espresso);color:white;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;font-family:'Frank Ruhl Libre',serif;}
+.step-text{font-size:15px;line-height:1.65;color:var(--espresso);padding-top:5px;}
+
+/* ── SHARE MODAL ── */
+.share-modal{background:var(--white);border-radius:24px;width:100%;max-width:430px;padding:34px 38px;transform:translateY(16px);transition:transform 0.3s;position:relative;margin:auto;}
+.share-option{background:var(--cream);border:1.5px solid var(--cream3);border-radius:var(--rsm);padding:15px 17px;display:flex;align-items:flex-start;gap:13px;cursor:pointer;transition:border 0.2s,background 0.2s;text-align:right;margin-bottom:10px;}
+.share-option:hover{border-color:var(--terra);background:var(--white);}
+.share-option-icon{font-size:22px;margin-top:2px;}
+.share-option-text h4{font-size:15px;font-weight:500;color:var(--espresso);margin-bottom:3px;}
+.share-option-text p{font-size:12px;color:var(--muted);line-height:1.55;}
+.share-note{font-size:12px;color:var(--muted);margin-top:16px;text-align:center;line-height:1.65;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:26px;left:26px;z-index:999;background:var(--espresso);color:white;border-radius:50px;padding:12px 22px;font-size:14px;transform:translateY(70px);opacity:0;transition:all 0.3s;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(26,16,8,0.3);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:3px;}
+
+@media(max-width:560px){
+  .modal,.share-modal{padding:22px 18px;}
+  .form-row{grid-template-columns:1fr;}
+  .view-body{padding:18px 16px 26px;}
+  .view-title-area{padding:16px 16px;}
+  .view-title{font-size:23px;}
+  .ingredients-list{grid-template-columns:1fr;}
+  .hero-title{font-size:36px;}
+  .header-actions .btn-icon span{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ COVER PAGE ════════════════════════ -->
+<section id="cover">
+  <div class="cover-bg1"></div>
+  <div class="cover-bg2"></div>
+  <div class="cover-ornament">🍲</div>
+  <div class="cover-inner">
+    <div class="cover-eyebrow">ספר המתכונים המשפחתי</div>
+    <h1 class="cover-title">
+      המטבח
+      <span>של חיה</span>
+    </h1>
+    <p class="cover-sub">כל מתכון הוא סיפור.<br>כל מנה — זיכרון שמחכה לשולחן.</p>
+    <div class="cover-tags">
+      <span class="cover-tag">🫕 מרקים חמים</span>
+      <span class="cover-tag">🥗 סלטים טריים</span>
+      <span class="cover-tag">🍰 קינוחים מתוקים</span>
+      <span class="cover-tag">🥘 ארוחות בית</span>
+      <span class="cover-tag">🍳 ארוחות בוקר</span>
+    </div>
+    <div class="cover-divider"></div>
+    <a class="cover-enter" href="#app" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'});return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      כנסי למטבח
+    </a>
+  </div>
+  <div class="cover-hint">גלילה למטה</div>
+</section>
+
+<!-- ════════════════════════ APP ════════════════════════ -->
+<div id="app">
+  <header>
+    <div class="logo">המטבח <em>של חיה</em></div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="openShareModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        <span>ייצוא / ייבוא</span>
+      </button>
+      <button class="btn-add-h" onclick="openAddModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        מתכון חדש
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="hero-eyebrow">אוסף אהוב</p>
+    <h1 class="hero-title">מתכונים<br>עם <em>אהבה</em></h1>
+    <p class="hero-sub">מטעמים שעוברים מדור לדור, שמורים כאן לנצח.</p>
+    <div class="hero-line"></div>
+  </section>
+
+  <div class="filters">
+    <button class="filter-pill active" onclick="filterBy('הכל',this)">הכל</button>
+    <button class="filter-pill" onclick="filterBy('ארוחת בוקר',this)">ארוחת בוקר</button>
+    <button class="filter-pill" onclick="filterBy('ארוחת צהריים',this)">ארוחת צהריים</button>
+    <button class="filter-pill" onclick="filterBy('ארוחת ערב',this)">ארוחת ערב</button>
+    <button class="filter-pill" onclick="filterBy('קינוח',this)">קינוח</button>
+    <button class="filter-pill" onclick="filterBy('מרק',this)">מרק</button>
+    <button class="filter-pill" onclick="filterBy('סלט',this)">סלט</button>
+    <button class="filter-pill" onclick="filterBy('חטיף',this)">חטיף</button>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="חיפוש מתכון…" oninput="renderCards()">
+    </div>
+  </div>
+
+  <p class="section-label" id="countLabel"></p>
+  <div class="recipes-grid" id="recipesGrid"></div>
+</div>
+
+<!-- ════ ADD MODAL ════ -->
+<div class="modal-overlay" id="addOverlay" onclick="handleOC(event,'addOverlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addOverlay')">✕</button>
+    <h2 class="modal-title">מתכון חדש</h2>
+    <p class="modal-subtitle">שתפי מנה מהלב</p>
+    <form id="recipeForm" onsubmit="saveRecipe(event)">
+      <div class="form-group">
+        <label>שם המתכון *</label>
+        <input type="text" id="rName" placeholder='לדוגמה: מרק עוף של סבתא' required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>קטגוריה</label>
+          <select id="rCategory">
+            <option>ארוחת ערב</option><option>ארוחת צהריים</option><option>ארוחת בוקר</option>
+            <option>קינוח</option><option>מרק</option><option>סלט</option><option>חטיף</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>מנות</label>
+          <input type="number" id="rServings" placeholder="4" min="1" max="100">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>זמן הכנה</label>
+          <input type="text" id="rPrep" placeholder="15 דקות">
+        </div>
+        <div class="form-group">
+          <label>זמן בישול</label>
+          <input type="text" id="rCook" placeholder="45 דקות">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>תיאור קצר</label>
+        <textarea id="rDesc" rows="2" placeholder="תיאור אוהב של המנה…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>תמונה</label>
+        <div class="image-upload">
+          <input type="file" id="rImage" accept="image/*" onchange="previewImage(event)">
+          <img class="image-preview" id="imagePreview" alt="">
+          <div id="uploadPrompt">
+            <div class="image-upload-icon">🍽️</div>
+            <p><strong>לחצי להעלאת תמונה</strong></p>
+            <p style="font-size:12px;margin-top:3px;">JPG, PNG, WEBP</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>מצרכים</label>
+        <div class="dynamic-list" id="ingredientsList">
+          <div class="dynamic-item">
+            <input type="text" placeholder='לדוגמה: 2 כוסות קמח'>
+            <button type="button" class="btn-remove" onclick="removeItem(this)">−</button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-item" onclick="addIngredient()">+ הוסף מצרך</button>
+      </div>
+      <div class="form-group">
+        <label>שלבי הכנה</label>
+        <div class="dynamic-list" id="stepsList">
+          <div class="dynamic-item">
+            <span class="step-num-badge">1</span>
+            <input type="text" placeholder='לדוגמה: מחממים תנור ל-180°'>
+            <button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-item" onclick="addStep()">+ הוסף שלב</button>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('addOverlay')">ביטול</button>
+        <button type="submit" class="btn-submit">שמירת המתכון ✦</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ════ VIEW MODAL ════ -->
+<div class="modal-overlay" id="viewOverlay" onclick="handleOC(event,'viewOverlay')">
+  <div class="view-modal" id="viewContent"></div>
+</div>
+
+<!-- ════ SHARE MODAL ════ -->
+<div class="modal-overlay" id="shareOverlay" onclick="handleOC(event,'shareOverlay')">
+  <div class="share-modal">
+    <button class="modal-close" onclick="closeModal('shareOverlay')">✕</button>
+    <h2 class="modal-title">שיתוף מתכונים</h2>
+    <p class="modal-subtitle">שיתוף עם בני המשפחה</p>
+    <div class="share-option" onclick="exportRecipes()">
+      <div class="share-option-icon">📤</div>
+      <div class="share-option-text">
+        <h4>ייצוא — הורדת קובץ</h4>
+        <p>מורידה קובץ עם כל המתכונים שלך. שלחי אותו לבני המשפחה בוואטסאפ, מייל וכו׳.</p>
+      </div>
+    </div>
+    <div class="share-option" onclick="document.getElementById('importFile').click()">
+      <div class="share-option-icon">📥</div>
+      <div class="share-option-text">
+        <h4>ייבוא — טעינה מקובץ</h4>
+        <p>קיבלת קובץ מתכונים? לחצי כאן כדי להוסיף אותו לאוסף שלך.</p>
+      </div>
+    </div>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importRecipes(event)">
+    <p class="share-note">💡 כל מכשיר שומר מתכונים בנפרד בדפדפן.<br>לשיתוף — יצאי קובץ ושלחי לבני המשפחה.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>✦</span><span id="toastMsg"></span></div>
+
+<script>
+let recipes=JSON.parse(localStorage.getItem('haya_he')||'[]');
+let currentFilter='הכל';
+let imageData='';
+
+if(!recipes.length){
+  recipes=[
+    {id:1,name:"שקשוקה",category:"ארוחת בוקר",servings:4,prep:"10 דקות",cook:"20 דקות",
+     desc:"ביצים עלומות ברוטב עגבניות עשיר ומתובל — ארוחת בוקר ישראלית קלאסית.",
+     image:"",emoji:"🍳",
+     ingredients:["6 ביצים","קופסת עגבניות מרוסקות","פלפל אדום גדול","בצל גדול","3 שיני שום","כפית כמון","כפית פפריקה מתוקה","קורט פלפל חריף","פטרוזיליה טרייה","מלח ופלפל לפי טעם"],
+     steps:["מחממים שמן זית במחבת רחבה על אש בינונית.","מטגנים בצל ופלפל עד שמתרכך, כ-5 דקות.","מוסיפים שום ותבלינים ומערבבים דקה.","יוצקים עגבניות מרוסקות, מתבלים ומבשלים 10 דקות.","יוצרים גומות ברוטב ושוברים ביצים.","מכסים ומבשלים עד שהחלבון מוצק.","מגישים עם לחם ופטרוזיליה."]},
+    {id:2,name:"מרק עדשים",category:"מרק",servings:6,prep:"10 דקות",cook:"40 דקות",
+     desc:"מרק עדשים כתומות חם ומחמם עם לימון וכמון — פשוט, מזין ואהוב.",
+     image:"",emoji:"🍲",
+     ingredients:["2 כוסות עדשים כתומות","בצל גדול","4 שיני שום","גזר","כפית כמון","חצי כפית כורכום","מיץ לימון","6 כוסות מרק ירקות","שמן זית","מלח ופלפל","כוסברה טרייה"],
+     steps:["מחממים שמן ומטגנים בצל עד הזהבה.","מוסיפים שום, גזר, כמון וכורכום.","שוטפים עדשים ומוסיפים עם המרק.","מביאים לרתיחה ומבשלים 30 דקות.","טוחנים חלקית לקבלת מרקם קרמי.","מוסיפים לימון ומתקנים תיבול."]},
+    {id:3,name:"בקלווה",category:"קינוח",servings:20,prep:"30 דקות",cook:"45 דקות",
+     desc:"שכבות של בצק פילו פריך, אגוזים ריחניים ודבש — קינוח משפחתי נצחי.",
+     image:"",emoji:"🍯",
+     ingredients:["500 גרם בצק פילו","300 גרם אגוזי מלך ופיסטוקים","200 גרם חמאה מומסת","כוס דבש","כוס סוכר","חצי כוס מים","כפית מי ורדים","כפית קינמון","קורט הל"],
+     steps:["קוצצים אגוזים עם קינמון והל.","מחממים תנור ל-175°.","משמנים תבנית ומניחים 8 שכבות פילו, כל שכבה מוברשת בחמאה.","פורסים אגוזים ומשכבים שוב פילו.","חורצים ריבועים לפני אפייה.","אופים 45 דקות עד הזהבה.","מרתיחים סוכר, מים, דבש ומי ורדים.","יוצקים סירופ חם על הבקלווה ומצננים."]}
+  ];
+  save();
+}
+function save(){localStorage.setItem('haya_he',JSON.stringify(recipes));}
+
+function getFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  return recipes.filter(r=>{
+    const mc=currentFilter==='הכל'||r.category===currentFilter;
+    const mq=!q||r.name.toLowerCase().includes(q)||(r.desc||'').toLowerCase().includes(q)||r.category.toLowerCase().includes(q);
+    return mc&&mq;
+  });
+}
+
+function renderCards(){
+  const grid=document.getElementById('recipesGrid');
+  const label=document.getElementById('countLabel');
+  const f=getFiltered();
+  label.textContent=f.length===recipes.length?`${recipes.length} מתכונים`:`${f.length} מתוך ${recipes.length}`;
+  if(!f.length){
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">🥄</div><h3>לא נמצאו מתכונים</h3><p>נסי חיפוש אחר או הוסיפי מתכון חדש.</p></div>`;
+    return;
+  }
+  grid.innerHTML=f.map(r=>`
+    <div class="recipe-card" onclick="viewRecipe(${r.id})">
+      ${r.image?`<img class="card-image" src="${r.image}" alt="${r.name}">`:`<div class="card-image-placeholder">${r.emoji||'🍽️'}</div>`}
+      <button class="card-delete" onclick="del(event,${r.id})" title="מחיקה">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+      </button>
+      <div class="card-body">
+        <span class="card-tag">${r.category}</span>
+        <h3 class="card-title">${r.name}</h3>
+        ${r.desc?`<p class="card-desc">${r.desc}</p>`:''}
+        <div class="card-meta">
+          ${r.prep?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${r.prep}</span>`:''}
+          ${r.cook?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h12"/></svg>${r.cook} בישול</span>`:''}
+          ${r.servings?`<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${r.servings} מנות</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function viewRecipe(id){
+  const r=recipes.find(x=>x.id===id);if(!r)return;
+  const ings=(r.ingredients||[]).filter(Boolean);
+  const steps=(r.steps||[]).filter(Boolean);
+  document.getElementById('viewContent').innerHTML=`
+    <button class="modal-close" style="z-index:10" onclick="closeModal('viewOverlay')">✕</button>
+    <div class="view-hero">
+      ${r.image?`<img src="${r.image}" alt="${r.name}">`:`<div class="view-hero-ph">${r.emoji||'🍽️'}</div>`}
+      <div class="view-grad"></div>
+      <div class="view-title-area"><span class="view-tag">${r.category}</span><h2 class="view-title">${r.name}</h2></div>
+    </div>
+    <div class="view-body">
+      <div class="view-meta">
+        ${r.prep?`<span class="view-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>הכנה: ${r.prep}</span>`:''}
+        ${r.cook?`<span class="view-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h12"/></svg>בישול: ${r.cook}</span>`:''}
+        ${r.servings?`<span class="view-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${r.servings} מנות</span>`:''}
+      </div>
+      ${r.desc?`<p class="view-desc">"${r.desc}"</p>`:''}
+      ${ings.length?`<h3 class="section-h">מצרכים</h3><div class="ingredients-list">${ings.map(i=>`<div class="ing-item"><div class="ing-dot"></div><span>${i}</span></div>`).join('')}</div>`:''}
+      ${steps.length?`<h3 class="section-h">אופן ההכנה</h3><div class="steps-list">${steps.map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><p class="step-text">${s}</p></div>`).join('')}</div>`:''}
+    </div>`;
+  openModal('viewOverlay');
+}
+
+function openAddModal(){
+  document.getElementById('recipeForm').reset();
+  document.getElementById('ingredientsList').innerHTML=`<div class="dynamic-item"><input type="text" placeholder="לדוגמה: 2 כוסות קמח"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button></div>`;
+  document.getElementById('stepsList').innerHTML=`<div class="dynamic-item"><span class="step-num-badge">1</span><input type="text" placeholder="לדוגמה: מחממים תנור ל-180°"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button></div>`;
+  document.getElementById('imagePreview').style.display='none';
+  document.getElementById('uploadPrompt').style.display='';
+  imageData='';
+  openModal('addOverlay');
+}
+
+function saveRecipe(e){
+  e.preventDefault();
+  const ings=[...document.querySelectorAll('#ingredientsList input')].map(i=>i.value.trim()).filter(Boolean);
+  const steps=[...document.querySelectorAll('#stepsList input')].map(i=>i.value.trim()).filter(Boolean);
+  const emojis=['🥘','🍲','🥗','🍛','🫕','🥙','🍜','🍝','🥧','🫔','🍱','🥞','🫓','🥩'];
+  recipes.unshift({
+    id:Date.now(),name:document.getElementById('rName').value,
+    category:document.getElementById('rCategory').value,
+    servings:document.getElementById('rServings').value,
+    prep:document.getElementById('rPrep').value,
+    cook:document.getElementById('rCook').value,
+    desc:document.getElementById('rDesc').value,
+    image:imageData,
+    emoji:emojis[Math.floor(Math.random()*emojis.length)],
+    ingredients:ings,steps
+  });
+  save();closeModal('addOverlay');renderCards();
+  showToast('המתכון נשמר בהצלחה!');
+}
+
+function del(e,id){
+  e.stopPropagation();
+  if(confirm('למחוק מתכון זה?')){
+    recipes=recipes.filter(r=>r.id!==id);save();renderCards();showToast('המתכון נמחק.');
+  }
+}
+
+function addIngredient(){
+  const li=document.createElement('div');li.className='dynamic-item';
+  li.innerHTML=`<input type="text" placeholder="מצרך נוסף…"><button type="button" class="btn-remove" onclick="removeItem(this)">−</button>`;
+  document.getElementById('ingredientsList').appendChild(li);li.querySelector('input').focus();
+}
+function addStep(){
+  const list=document.getElementById('stepsList');
+  const n=list.children.length+1;
+  const li=document.createElement('div');li.className='dynamic-item';
+  li.innerHTML=`<span class="step-num-badge">${n}</span><input type="text" placeholder="שלב הבא…"><button type="button" class="btn-remove" onclick="removeItem(this);updateNums()">−</button>`;
+  list.appendChild(li);li.querySelector('input').focus();
+}
+function removeItem(btn){
+  const list=btn.closest('.dynamic-list');
+  if(list.children.length>1)btn.closest('.dynamic-item').remove();
+}
+function updateNums(){
+  document.querySelectorAll('#stepsList .step-num-badge').forEach((b,i)=>b.textContent=i+1);
+}
+function previewImage(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    imageData=ev.target.result;
+    document.getElementById('imagePreview').src=imageData;
+    document.getElementById('imagePreview').style.display='block';
+    document.getElementById('uploadPrompt').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function filterBy(cat,btn){
+  currentFilter=cat;
+  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');renderCards();
+}
+
+/* ── SHARE ── */
+function openShareModal(){openModal('shareOverlay');}
+function exportRecipes(){
+  const blob=new Blob([JSON.stringify(recipes,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;
+  a.download=`מתכונים-של-חיה.json`;a.click();URL.revokeObjectURL(url);
+  closeModal('shareOverlay');showToast('הקובץ הורד — שלחי לבני המשפחה! 🎉');
+}
+function importRecipes(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const imp=JSON.parse(ev.target.result);
+      if(!Array.isArray(imp))throw 0;
+      const ids=new Set(recipes.map(r=>r.id));
+      let added=0;
+      imp.forEach(r=>{if(!ids.has(r.id)){recipes.unshift(r);added++;}});
+      save();renderCards();closeModal('shareOverlay');
+      showToast(added?`נוספו ${added} מתכונים חדשים!`:'כל המתכונים כבר קיימים.');
+    }catch{showToast('שגיאה בקריאת הקובץ.');}
+  };
+  reader.readAsText(file);e.target.value='';
+}
+
+/* ── UTILS ── */
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function handleOC(e,id){if(e.target.id===id)closeModal(id);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')['addOverlay','viewOverlay','shareOverlay'].forEach(closeModal);});
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+renderCards();
+</script>
+</body>
+</html>
