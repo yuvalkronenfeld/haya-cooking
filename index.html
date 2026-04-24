@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>המטבח של חיה</title>
+<title>המטבח של חייקה</title>
 
 <link rel="icon" type="image/png" href="./logo.png?v=2">
 <link rel="apple-touch-icon" href="./logo.png?v=2">
@@ -230,7 +230,7 @@ textarea{resize:vertical;min-height:72px;}
     <div class="cover-eyebrow">ספר המתכונים המשפחתי</div>
     <h1 class="cover-title">
       המטבח
-      <span>של חיה</span>
+      <span>של חייקה</span>
     </h1>
     <p class="cover-sub">כל מתכון הוא סיפור.<br>כל מנה — חמה, טעימה ומלב שלם.</p>
     <div class="cover-tags">
@@ -251,7 +251,7 @@ textarea{resize:vertical;min-height:72px;}
 
 <div id="app">
   <header>
-    <div class="logo">המטבח <em>של חיה</em></div>
+    <div class="logo">המטבח <em>של חייקה</em></div>
     <div class="header-actions">
       <button class="btn-icon" onclick="openShareModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
@@ -267,12 +267,12 @@ textarea{resize:vertical;min-height:72px;}
   <section class="hero">
     <div class="hero-text">
       <p class="hero-eyebrow">אוסף משפחתי אוהב</p>
-      <h1 class="hero-title">המתכונים<br>של <em>חיה</em></h1>
+      <h1 class="hero-title">המתכונים<br>של <em>חייקה</em></h1>
       <p class="hero-sub">בדיוק כמו בבית: מטעמים עם זיכרונות שעוברים מדור לדור, שמורים כאן לכולנו עם המון אהבה.</p>
       <div class="hero-line"></div>
     </div>
     <div class="hero-profile">
-      <img src="./chaya.jpg" alt="חיה" class="chaya-photo" onerror="this.style.display='none'; this.parentNode.style.background='var(--cream3)'; this.parentNode.style.width='150px'; this.parentNode.style.height='150px'; this.parentNode.style.borderRadius='50%'">
+      <img src="./chaya.jpg" alt="חייקה" class="chaya-photo" onerror="this.style.display='none'; this.parentNode.style.background='var(--cream3)'; this.parentNode.style.width='150px'; this.parentNode.style.height='150px'; this.parentNode.style.borderRadius='50%'">
     </div>
   </section>
 
@@ -779,7 +779,7 @@ function exportRecipes(){
   const blob=new Blob([JSON.stringify(recipes,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;
-  a.download=`מתכונים-של-חיה.json`;a.click();URL.revokeObjectURL(url);
+  a.download=`מתכונים-של-חייקה.json`;a.click();URL.revokeObjectURL(url);
   closeModal('shareOverlay');showToast('הקובץ הורד — שלחי לבני המשפחה! 🎉');
 }
 function importRecipes(e){
